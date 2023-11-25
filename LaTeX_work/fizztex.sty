@@ -1,0 +1,154 @@
+% The package identifies itself and the LaTeX version needed
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fizztex}[2022/09/16 Tyler's Engineering Physics Package]
+
+% Requeiried packages and preliminary definitions, needed by the options
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{esint}
+\usepackage{calligra}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+
+
+% Defines calligra font
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n} 
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+
+
+
+% Bracket commands
+\newcommand{\brangle}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\brround}[1]{\left( #1 \right)}
+
+\newcommand{\brcurly}[1]{\left\{ #1 \right\}}
+
+\newcommand{\brsquare}[1]{\left[ #1 \right]}
+
+\newcommand{\brvertical}[1]{\left| #1 \right|}
+
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+
+
+% Matrix commands
+\newcommand{\matrixx}[1]{\left[\begingroup        \renewcommand{\arraystretch}{1}\begin{matrix} #1 \end{matrix}\endgroup\right]}
+
+\newcommand{\eqnsystem}[1]{\left\{\begin{matrix} #1 \end{matrix}\right.}
+
+\newcommand{\detmatrix}[1]{\left|\begin{matrix} #1
+\end{matrix}\right|}
+
+\newcommand{\augmatrix}[2]{\left[\begingroup        \renewcommand{\arraystretch}{1}\begin{matrix} #1 \end{matrix}\endgroup\middle|\begingroup        \renewcommand{\arraystretch}{1}\begin{matrix} #2 \end{matrix}\endgroup\right]}
+
+
+
+
+%%Vector and notation commands
+\newcommand{\fvec}[1]{\underrightarrow{#1}}
+
+
+
+% Lettering
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\sr}{\ensuremath{\mathcalligra{r}}}
+\newcommand{\cursive}[1]{\ensuremath{\mathcalligra{#1}}}
+\newcommand{\lap}{\mathscr{L}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Null}{\mathcal{N}}
+\newcommand{\Range}{\mathcal{R}}
+
+
+
+% Fraction/derivative commands
+\newcommand{\ddx}[2][]{\frac{d #1}{d #2}}
+\newcommand{\pdx}[2][]{\frac{\partial #1}{\partial #2}}
+\newcommand{\bfrac}[2]{\left(\frac{#1}{#2}\right)}
+
+% Permutation/combinatorics
+\newcommand{\perm}[2]{\prescript{}{#1}{P}_{#2}}
+\newcommand{\comb}[2]{\prescript{}{#1}{C}_{#2}}
+\newcommand{\combm}[2]{\left(\begin{matrix}#1\\#2\end{matrix}\right)}
+
+
+
+%%Ease of use commands
+\newcommand{\Ra}{\Rightarrow}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\eval}{\bigg\vert}
+\newcommand{\ds}{\displaystyle}
+
+
+
+% Math operators
+
+% trigonometry
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arcsec}{arcsec}
+
+% linear algebra
+\DeclareMathOperator{\trace}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\cond}{cond}
+\DeclareMathOperator{\spann}{span}
+\DeclareMathOperator{\nullity}{nullity}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\dir}{dir}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\Rot}{Rot}
+\DeclareMathOperator{\Reflection}{Ref}
+
+% functions
+\DeclareMathOperator{\erf}{erf}
+\DeclareMathOperator{\modu}{mod}
+
+% complex analysis
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Res}{Res}
+
+% probability
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expect}{\mathbb{E}}
+\newcommand{\ind}{\mathds{1}}
+\DeclareMathOperator{\Var}{Var}
+
+% formula box
+\newcommand{\formulabox}[2]{\begin{center} \begin{tcolorbox}[text width = #1] $$#2$$\end{tcolorbox}\end{center}}
+\newcommand{\formula}[2]{\begin{tcolorbox}[title = #1] #2 \end{tcolorbox}}
+
+
+% units
+\newcommand{\units}[1]{\,\mathrm{#1}}
+\newcommand{\Exp}[1]{\cdot 10^{#1}}
+
+
+% coloured boxes
+\usepackage{xcolor}
+% Syntax: \colorboxed[<color model>]{<color specification>}{<math formula>}
+\newcommand*{\colourboxed}{}
+\def\colourboxed#1#{%
+  \colourboxedAux{#1}%
+}
+\newcommand*{\colourboxedAux}[3]{%
+  % #1: optional argument for color model
+  % #2: color specification
+  % #3: formula
+  \begingroup
+    \colorlet{cb@saved}{.}%
+    \color#1{#2}%
+    \boxed{%
+      \color{cb@saved}%
+      #3%
+    }%
+  \endgroup
+}

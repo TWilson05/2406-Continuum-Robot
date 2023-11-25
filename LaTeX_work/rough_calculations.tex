@@ -1,0 +1,58 @@
+\documentclass[11pt, fleqn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{amsmath,amssymb,array}
+\usepackage{dsfont}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{polynom}
+\usepackage{esint}
+\usepackage{mathrsfs}
+\usepackage{calligra}
+\usepackage{amsthm}
+\usepackage{fizztex}
+\setlength{\parindent}{0em}
+
+
+\title{Rough Calculations}
+\author{Tyler Wilson}
+
+\begin{document}
+\allowdisplaybreaks
+\maketitle
+
+\textbf{Deflection Computations:}
+\tiny
+\begin{align*}
+    &P=mg\\
+    &\delta=\pdx[U]{P}\\
+    &U=\int_0^{L_1+L_2+L_3}\frac{M^2}{2EI}dx\\
+    &\delta=\frac{1}{E}\int_0^{L_1+L_2+L_3}\frac{M}{I}\pdx[M]{P}dx\\
+    &\rho=\frac{m}{V}\Ra m=\rho V=\rho Ax\\
+    &M(x)=-Px-\frac{1}{2}\rho A_1gx^2-\frac{1}{2}\rho A_2g(x-L_1)^2\ind\brcurly{x>L_1}-\frac{1}{2}\rho A_3g(x-L_1-L_2)^2\ind\brcurly{x>L_1+L_2}\\
+    &\pdx[M]{P}=-x\\
+    &I(x)=I_1+I_2\ind\brcurly{x>L_1}+I_3\ind\brcurly{x>L_1+L_2}\\
+    &\delta=\frac{1}{E}\brround{\int_0^{L_1}\frac{M}{I}\pdx[M]{P}dx+\int_{L_1}^{L_1+L_2}\frac{M}{I}\pdx[M]{P}dx+\int_{L_1+L_2}^{L_1+L_2+L_3}\frac{M}{I}\pdx[M]{P}dx}\\
+    &\int_0^{L_1}\frac{M}{I}\pdx[M]{P}dx=\int_0^{L_1}\frac{mgx^2+\frac{1}{2}\rho A_1gx^3}{I_1}dx=\frac{g}{I_1}\brround{\frac{mL_1^3}{3}+\frac{\rho A_1L_1^4}{8}}\\
+    &\int_{L_1}^{L_1+L_2}\frac{M}{I}\pdx[M]{P}dx=\int_{L_1}^{L_1+L_2}\frac{mgx^2+\frac{1}{2}\rho A_1gx^3+\frac{1}{2}\rho A_2gx(x-L_1)^2}{I_1+I_2}dx\\
+    &=\frac{g}{I_1+I_2}\brround{\frac{m((L_1+L_2)^3-L_1^3)}{3}+\frac{\rho A_1((L_1+L_2)^4-L_1^4)}{8}}\\
+    &+\frac{g\rho A_2}{I_1+I_2}\brround{\frac{(L_1+L_2)^4-L_1^4}{8}-\frac{(L_1+L_2)^3-L_1^3}{3}L_1+\frac{(L_1+L_2)^2-L_1^2}{4}L_1^2}\\
+    &\int_{L_1+L_2}^{L_1+L_2+L_3}\frac{M}{I}\pdx[M]{P}dx=\int_{L_1+L_2}^{L_1+L_2+L_3}\frac{mgx^2+\frac{1}{2}\rho A_1gx^3+\frac{1}{2}\rho A_2gx(x-L_1)^2+\frac{1}{2}\rho A_3gx(x-L_1-L_2)}{I_1+I_2+I_3}dx\\
+    &=\frac{g}{I_1+I_2+I_3}\brround{\frac{m((L_1+L_2+L_3)^3-(L_1+L_2)^3)}{3}+\frac{\rho A_1((L_1+L_2+L_3)^4-(L_1+L_2)^4)}{8}}\\
+    &+\frac{g\rho A_2}{I_1+I_2+I_3}\brround{\frac{(L_1+L_2+L_3)^4-(L_1+L_2)^4}{8}-\frac{(L_1+L_2+L_3)^3-(L_1+L_2)^3}{3}L_1^2+\frac{(L_1+L_2+L_3)^2-(L_1+L_2)^2}{4}L_1^2}\\
+    &+\frac{g\rho A_3}{I_1+I_2+I_3}\brround{\frac{(L_1+L_2+L_3)^4-(L_1+L_2)^4}{8}-\frac{(L_1+L_2+L_3)^3-(L_1+L_2)^3}{3}(L_1+L_2)+\frac{(L_1+L_2+L_3)^2-(L_1+L_2)^2}{4}(L_1+L_2)^2}
+\end{align*}
+And so the deflection is simply
+\begin{align*}
+    &\delta=\frac{g}{E}\left(\frac{1}{I_1}\brround{\frac{mL_1^3}{3}+\frac{\rho A_1L_1^4}{8}}+\frac{1}{I_1+I_2}\brround{\frac{m((L_1+L_2)^3-L_1^3)}{3}+\frac{\rho A_1((L_1+L_2)^4-L_1^4)}{8}}\right.\\
+    &+\frac{\rho A_2}{I_1+I_2}\brround{\frac{(L_1+L_2)^4-L_1^4}{8}-\frac{(L_1+L_2)^3-L_1^3}{3}L_1+\frac{(L_1+L_2)^2-L_1^2}{4}L_1^2}\\
+    &+\frac{1}{I_1+I_2+I_3}\brround{\frac{m((L_1+L_2+L_3)^3-(L_1+L_2)^3)}{3}+\frac{\rho A_1((L_1+L_2+L_3)^4-(L_1+L_2)^4)}{8}}\\
+    &+\frac{\rho A_2}{I_1+I_2+I_3}\brround{\frac{(L_1+L_2+L_3)^4-(L_1+L_2)^4}{8}-\frac{(L_1+L_2+L_3)^3-(L_1+L_2)^3}{3}L_1+\frac{(L_1+L_2+L_3)^2-(L_1+L_2)^2}{4}L_1^2}\\
+    &\left.+\frac{\rho A_3}{I_1+I_2+I_3}\brround{\frac{(L_1+L_2+L_3)^4-(L_1+L_2)^4}{8}-\frac{(L_1+L_2+L_3)^3-(L_1+L_2)^3}{3}(L_1+L_2)+\frac{(L_1+L_2+L_3)^2-(L_1+L_2)^2}{4}(L_1+L_2)^2}\right)
+\end{align*}
+
+
+
+
+\end{document}
