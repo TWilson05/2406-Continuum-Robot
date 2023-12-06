@@ -32,6 +32,10 @@ class CTR_DomStiff:
         Kappas (ndarray): [k3, k2, k1], curvature of each tube
         Pipe_Profile (list): Optional, [x, y1, y2] to draw the pipe on all plots
         '''
+        # redefine lengths
+        Lengths[1] = Lengths[0] + Lengths[1]
+        Lengths[2] = Lengths[1] + Lengths[2]
+        
         self.Lengths = Lengths
         self.Curved_Lengths = Curved_Lengths
         self.Kappas = Kappas
@@ -101,9 +105,10 @@ class CTR_DomStiff:
         merge (bool): default True, returns the merged robot shape. 
             If False, returns a list of three lists of xy-coordinates, one for each tube
         '''
-        s3 = np.linspace(0, kin_lengths[0], 1000)
-        s2 = kin_lengths[0] + np.linspace(0, kin_lengths[1], 1000)
-        s1 = kin_lengths[0] + kin_lengths[1] + np.linspace(0, kin_lengths[2], 1000)
+        size = 100
+        s3 = np.linspace(0, kin_lengths[0], size)
+        s2 = kin_lengths[0] + np.linspace(0, kin_lengths[1], size)
+        s1 = kin_lengths[0] + kin_lengths[1] + np.linspace(0, kin_lengths[2], size)
         s_vals = [s3, s2, s1]
         [xy_s3, xy_s2, xy_s1] = [np.array([self.forward_kin(kin_lengths, thetas, s)[0] 
                                   for s in s_vals[i]]) for i in range(len(s_vals))]
@@ -157,8 +162,9 @@ class CTR_DomStiff:
         return ax
     
     def add_pipe_boundaries(self, ax):
-        ax.plot(self.Pipe_Profile[0], self.Pipe_Profile[1], c="black")
-        ax.plot(self.Pipe_Profile[0], self.Pipe_Profile[2], c="black")
+        x, y_upper, y_lower = self.Pipe_Profile.tube_shape()
+        ax.plot(x, y_upper, c="black")
+        ax.plot(x, y_lower, c="black")
 
     def stacked_to_kin_lengths(self, stacked_lengths):
         l3 = stacked_lengths[0]
