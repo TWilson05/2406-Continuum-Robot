@@ -31,11 +31,7 @@ class CTR_DomStiff:
         Curved_Lengths (ndarray): [L3c, L2c, L1c], curved length of each tube
         Kappas (ndarray): [k3, k2, k1], curvature of each tube
         Pipe_Profile (list): Optional, [x, y1, y2] to draw the pipe on all plots
-        '''
-        # redefine lengths
-        Lengths[1] = Lengths[0] + Lengths[1]
-        Lengths[2] = Lengths[1] + Lengths[2]
-        
+        '''        
         self.Lengths = Lengths
         self.Curved_Lengths = Curved_Lengths
         self.Kappas = Kappas
